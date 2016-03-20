@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical"
+    android:padding="0dp"
+    android:weightSum="18">
+
+    <TextView
+        android:id="@+id/calculator_screen"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="4"
+        android:background="@android:color/black"
+        android:lines="3"
+        android:textColor="@android:color/white"
+        android:textSize="20dp"
+        android:layout_marginTop="@dimen/calculator_padding"
+        android:layout_marginLeft="@dimen/calculator_padding"
+        android:layout_marginRight="@dimen/calculator_padding"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="14"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/calculator_padding"
+        android:paddingLeft="@dimen/calculator_padding"
+        android:paddingRight="@dimen/calculator_padding"
+        android:weightSum="4">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:orientation="vertical"
+            android:weightSum="5">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:weightSum="3">
+
+                <ImageButton
+                    android:id="@+id/reset"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/orange_btn_default_holo_light"
+                    android:src="@drawable/symbol_reset" />
+
+                <ImageButton
+                    android:id="@+id/clear_one"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/orange_btn_default_holo_light"
+                    android:src="@drawable/arrow_back" />
+
+                <ImageButton
+                    android:id="@+id/divide"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/grey_theme_btn_default_holo_light"
+                    android:src="@drawable/symbol_divide" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:weightSum="3">
+
+                <ImageButton
+                    android:id="@+id/seven"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/grey_theme_btn_default_holo_light"
+                    android:src="@drawable/symbol_seven" />
+
+                <ImageButton
+                    android:id="@+id/eight"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/grey_theme_btn_default_holo_light"
+                    android:src="@drawable/symbol_eight" />
+
+                <ImageButton
+                    android:id="@+id/nine"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/grey_theme_btn_default_holo_light"
+                    android:src="@drawable/symbol_nine" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:weightSum="3">
+
+                <ImageButton
+                    android:id="@+id/four"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/grey_theme_btn_default_holo_light"
+                    android:src="@drawable/symbol_four" />
+
+                <ImageButton
+                    android:id="@+id/five"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/grey_theme_btn_default_holo_light"
+                    android:src="@drawable/symbol_five" />
+
+                <ImageButton
+                    android:id="@+id/six"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/grey_theme_btn_default_holo_light"
+                    android:src="@drawable/symbol_six" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:weightSum="3">
+
+                <ImageButton
+                    android:id="@+id/one"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/grey_theme_btn_default_holo_light"
+                    android:src="@drawable/symbol_one" />
+
+                <ImageButton
+                    android:id="@+id/two"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/grey_theme_btn_default_holo_light"
+                    android:src="@drawable/symbol_two" />
+
+                <ImageButton
+                    android:id="@+id/three"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/grey_theme_btn_default_holo_light"
+                    android:src="@drawable/symbol_three" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:weightSum="3">
+
+                <ImageButton
+                    android:id="@+id/zero"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:background="@drawable/grey_theme_btn_default_holo_light"
+                    android:src="@drawable/symbol_zero" />
+
+                <ImageButton
+                    android:id="@+id/dot"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/grey_theme_btn_default_holo_light"
+                    android:src="@drawable/symbol_dot" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:weightSum="5">
+
+            <ImageButton
+                android:id="@+id/multiply"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="@drawable/grey_theme_btn_default_holo_light"
+                android:src="@drawable/symbol_multiply" />
+
+            <ImageButton
+                android:id="@+id/minus"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="@drawable/grey_theme_btn_default_holo_light"
+                android:src="@drawable/symbol_minus" />
+
+            <ImageButton
+                android:id="@+id/plus"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="@drawable/grey_theme_btn_default_holo_light"
+                android:src="@drawable/symbol_plus" />
+
+            <ImageButton
+                android:id="@+id/equals"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="2"
+                android:background="@drawable/blue_btn_default_holo_light"
+                android:src="@drawable/symbol_equals" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

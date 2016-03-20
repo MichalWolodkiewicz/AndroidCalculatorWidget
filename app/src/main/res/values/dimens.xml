@@ -1,0 +1,5 @@
+<resources>
+    <dimen name="calculator_padding">1dp</dimen>
+    <dimen name="screen_width">100dp</dimen>
+    <dimen name="screen_height">200dp</dimen>
+</resources>
