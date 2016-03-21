@@ -64,7 +64,11 @@ public class CalculatorWidgetProvider extends AppWidgetProvider {
         int buttonId = intent.getExtras().getInt(BUTTON_ID);
         if (buttonId == R.id.reset) {
             expression = "";
-        } else if (buttonId == R.id.equals) {
+        } else if (buttonId == R.id.clear_one) {
+            if (expression.length() > 0) {
+                expression = expression.substring(0, expression.length()-1);
+            }
+        } else if (buttonId == R.id.equals && expression.length() > 0) {
             expression = expressionEvaluator.evaluate(expression);
         } else {
             addSymbolToExpression(buttonId);

@@ -51,7 +51,39 @@ public class CalculatorWidgetProviderTest extends AndroidTestCase {
             {R.id.minus, "1+", "1+"},
             {R.id.minus, "1*", "1*"},
             {R.id.minus, "2", "2-"},
-            {R.id.minus, "1.", "1."}
+            {R.id.minus, "1.", "1."},
+            {R.id.minus, "", "-"},
+            {R.id.plus, "1-", "1-"},
+            {R.id.plus, "1/", "1/"},
+            {R.id.plus, "1+", "1+"},
+            {R.id.plus, "1*", "1*"},
+            {R.id.plus, "2", "2+"},
+            {R.id.plus, "1.", "1."},
+            {R.id.plus, "", ""},
+            {R.id.divide, "1-", "1-"},
+            {R.id.divide, "1/", "1/"},
+            {R.id.divide, "1+", "1+"},
+            {R.id.divide, "1*", "1*"},
+            {R.id.divide, "2", "2/"},
+            {R.id.divide, "1.", "1."},
+            {R.id.divide, "", ""},
+            {R.id.multiply, "1-", "1-"},
+            {R.id.multiply, "1/", "1/"},
+            {R.id.multiply, "1+", "1+"},
+            {R.id.multiply, "1*", "1*"},
+            {R.id.multiply, "2", "2*"},
+            {R.id.multiply, "1.", "1."},
+            {R.id.multiply, "", ""},
+            {R.id.clear_one, "", ""},
+            {R.id.clear_one, "2", ""},
+            {R.id.clear_one, "123+", "123"},
+            {R.id.equals, "", ""},
+            {R.id.dot, "", ""},
+            {R.id.dot, "1.", "1."},
+            {R.id.dot, "1.5", "1.5"},
+            {R.id.dot, "123+", "123+"},
+            {R.id.dot, "123+5", "123+5."},
+            {R.id.dot, "-10.6/", "-10.6/"}
     };
 
     @InjectMocks
@@ -153,5 +185,25 @@ public class CalculatorWidgetProviderTest extends AndroidTestCase {
 
         // then
         verify(calculatorData, times(1)).saveExpression(getContext(), "");
+    }
+
+    public void testDoNotEvaluateWhenExpressionEmpty() {
+        // given
+        Intent intent = mock(Intent.class);
+        when(intent.getAction()).thenReturn(BUTTON_PRESS_ACTION);
+        Bundle bundle = new Bundle();
+        bundle.putInt(CalculatorWidgetProvider.BUTTON_ID, R.id.equals);
+        when(intent.getExtras()).thenReturn(bundle);
+        CalculatorData calculatorData = mock(CalculatorData.class);
+        when(calculatorData.readExpression(getContext())).thenReturn("");
+        calculatorWidgetProvider.setCalculatorData(calculatorData);
+        ExpressionEvaluator expressionEvaluator = mock(ExpressionEvaluator.class);
+        calculatorWidgetProvider.setExpressionEvaluator(expressionEvaluator);
+
+        // when
+        calculatorWidgetProvider.onReceive(getContext(), intent);
+
+        // then
+        verify(expressionEvaluator, times(0)).evaluate("");
     }
 }
