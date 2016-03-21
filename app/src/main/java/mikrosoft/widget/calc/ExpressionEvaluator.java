@@ -5,6 +5,10 @@ import com.udojava.evalex.Expression;
 public class ExpressionEvaluator {
 
     public String evaluate(String expression) {
-        return new Expression(expression).eval().toString();
+        String result = new Expression(expression).eval().toPlainString();
+        if(result.matches("[0.]*")) {
+            result = "0";
+        }
+        return result;
     }
 }
