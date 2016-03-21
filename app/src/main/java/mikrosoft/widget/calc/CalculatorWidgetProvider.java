@@ -13,6 +13,7 @@ public class CalculatorWidgetProvider extends AppWidgetProvider {
     public static final String BUTTON_PRESS_ACTION = "button.press.action";
     public static final String BUTTON_ID = "button.id";
     private final String PACKAGE_NAME = "calc.widget.android.mikrosoft.calculatorwidget";
+    private static final String EMPTY_EXPRESSION = "";
     private static String expression = "";
     private RemoteViews remoteViews;
     private CalculatorData calculatorData;
@@ -22,6 +23,11 @@ public class CalculatorWidgetProvider extends AppWidgetProvider {
         remoteViews = new RemoteViews(PACKAGE_NAME, R.layout.widget_layout);
         calculatorData = new CalculatorData();
         expressionEvaluator = new ExpressionEvaluator();
+    }
+
+    @Override
+    public void onEnabled(Context context) {
+        calculatorData.saveExpression(context, EMPTY_EXPRESSION);
     }
 
     @Override

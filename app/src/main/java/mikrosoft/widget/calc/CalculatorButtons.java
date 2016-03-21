@@ -1,7 +1,6 @@
 package mikrosoft.widget.calc;
 
 import java.util.HashMap;
-import java.util.Map;
 
 public class CalculatorButtons {
 
@@ -33,7 +32,7 @@ public class CalculatorButtons {
         put(R.id.eight, new Object[]{"8", null});
         put(R.id.nine, new Object[]{"9", null});
         put(R.id.dot, new Object[]{".", new String[]{""}});
-        put(R.id.multiply, new Object[]{"*", new String[]{"", MINUS, PLUS, DIVIDE, MULTIPLY}});
+        put(R.id.multiply, new Object[]{"*", new String[]{"^.*[-+/*.]+$"}});
         put(R.id.clear_one, new Object[]{null, null});
         put(R.id.reset, new Object[]{null, null});
         put(R.id.minus, new Object[]{"-", new String[]{"^.*[-+/*.]+$"}});

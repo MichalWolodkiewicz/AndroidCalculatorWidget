@@ -142,4 +142,16 @@ public class CalculatorWidgetProviderTest extends AndroidTestCase {
         // then
         assertThat(calculatorWidgetProvider.getExpression(), equalTo(expectedExpression));
     }
+
+    public void testResetExpressionOnEnabled() {
+        // given
+        CalculatorData calculatorData = mock(CalculatorData.class);
+        calculatorWidgetProvider.setCalculatorData(calculatorData);
+
+        // when
+        calculatorWidgetProvider.onEnabled(getContext());
+
+        // then
+        verify(calculatorData, times(1)).saveExpression(getContext(), "");
+    }
 }
