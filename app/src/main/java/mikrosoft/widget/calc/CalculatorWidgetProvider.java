@@ -64,21 +64,33 @@ public class CalculatorWidgetProvider extends AppWidgetProvider {
         expression = calculatorData.readExpression(context);
         int buttonId = intent.getExtras().getInt(BUTTON_ID);
         if (buttonId == R.id.reset) {
-            expression = "";
-            calculatorData.saveExpression(context, "");
+            resetExpression(context);
         } else if (buttonId == R.id.clear_one) {
-            if (expression.length() > 0) {
-                expression = expression.substring(0, expression.length() - 1);
-                if(expression.length() == 0) {
-                    calculatorData.saveExpression(context, "");
-                }
-            }
+            clearOneSign(context);
         } else if (buttonId == R.id.equals && expression.length() > 0) {
             evaluateExpression();
         } else {
             addSymbolToExpression(buttonId);
         }
         saveExpression(context);
+        updateWidgets(context, intent);
+    }
+
+    private void resetExpression(Context context) {
+        expression = "";
+        calculatorData.saveExpression(context, "");
+    }
+
+    private void clearOneSign(Context context) {
+        if (expression.length() > 0) {
+            expression = expression.substring(0, expression.length() - 1);
+            if(expression.length() == 0) {
+                calculatorData.saveExpression(context, "");
+            }
+        }
+    }
+
+    private void updateWidgets(Context context, Intent intent) {
         int[] widgetIds = intent.getIntArrayExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS);
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
         onUpdate(context, appWidgetManager, widgetIds);

@@ -19,18 +19,19 @@ public class CalculatorButtons {
     private static final String MINUS = "-";
     private static final String PLUS = "+";
     private static final String DIVIDE = "/";
+    private static final String[] MAX_NUMBER_CONSTRAINT = {"^.*([0-9]{10}|[0-9.]{11})$"};
 
     private static HashMap<Integer, Object[]> BUTTONS = new HashMap() {{
         put(R.id.zero, new Object[]{"0", new String[]{"^.*[+-/*][0]$"}});
-        put(R.id.one, new Object[]{"1", null});
-        put(R.id.two, new Object[]{"2", null});
-        put(R.id.three, new Object[]{"3", null});
-        put(R.id.four, new Object[]{"4", null});
-        put(R.id.five, new Object[]{"5", null});
-        put(R.id.six, new Object[]{"6", null});
-        put(R.id.seven, new Object[]{"7", null});
-        put(R.id.eight, new Object[]{"8", null});
-        put(R.id.nine, new Object[]{"9", null});
+        put(R.id.one, new Object[]{"1", MAX_NUMBER_CONSTRAINT});
+        put(R.id.two, new Object[]{"2", MAX_NUMBER_CONSTRAINT});
+        put(R.id.three, new Object[]{"3", MAX_NUMBER_CONSTRAINT});
+        put(R.id.four, new Object[]{"4", MAX_NUMBER_CONSTRAINT});
+        put(R.id.five, new Object[]{"5", MAX_NUMBER_CONSTRAINT});
+        put(R.id.six, new Object[]{"6", MAX_NUMBER_CONSTRAINT});
+        put(R.id.seven, new Object[]{"7", MAX_NUMBER_CONSTRAINT});
+        put(R.id.eight, new Object[]{"8", MAX_NUMBER_CONSTRAINT});
+        put(R.id.nine, new Object[]{"9", MAX_NUMBER_CONSTRAINT});
         put(R.id.dot, new Object[]{".", new String[]{"^.*[-+/*.]$|^.*[0-9]*[.][0-9]*$|^$"}});
         put(R.id.multiply, new Object[]{"*", new String[]{"^$|^.*[-+/*.]+$"}});
         put(R.id.clear_one, new Object[]{null, null});

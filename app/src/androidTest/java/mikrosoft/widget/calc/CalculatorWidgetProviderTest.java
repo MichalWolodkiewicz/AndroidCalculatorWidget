@@ -8,7 +8,6 @@ import android.support.annotation.NonNull;
 import android.test.AndroidTestCase;
 import android.widget.RemoteViews;
 
-import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mockito;
@@ -127,12 +126,8 @@ public class CalculatorWidgetProviderTest extends AndroidTestCase {
         Intent intent = mockIntent(R.id.equals);
         final String SCREEN_ACTUAL_VALUE = "123+100";
         final String EVALUATED_VALUE = "223";
-        ExpressionEvaluator expressionEvaluator = mock(ExpressionEvaluator.class);
-        when(expressionEvaluator.evaluate(SCREEN_ACTUAL_VALUE)).thenReturn(EVALUATED_VALUE);
-        calculatorWidgetProvider.setExpressionEvaluator(expressionEvaluator);
-        CalculatorData calculatorData = mock(CalculatorData.class);
-        when(calculatorData.readExpression(getContext())).thenReturn(SCREEN_ACTUAL_VALUE);
-        calculatorWidgetProvider.setCalculatorData(calculatorData);
+        ExpressionEvaluator expressionEvaluator = mockExpressionEvaluator(SCREEN_ACTUAL_VALUE, EVALUATED_VALUE);
+        CalculatorData calculatorData = mockCalculatorData(SCREEN_ACTUAL_VALUE);
 
         // when
         calculatorWidgetProvider.onReceive(getContext(), intent);
@@ -141,6 +136,22 @@ public class CalculatorWidgetProviderTest extends AndroidTestCase {
         assertThat(calculatorWidgetProvider.getExpression(), equalTo(EVALUATED_VALUE));
         verify(expressionEvaluator, times(1)).evaluate(SCREEN_ACTUAL_VALUE);
         verify(calculatorData, times(1)).saveExpression(getContext(), EVALUATED_VALUE);
+    }
+
+    @NonNull
+    private ExpressionEvaluator mockExpressionEvaluator(String screenActualValue, String evaluatedValue) {
+        ExpressionEvaluator expressionEvaluator = mock(ExpressionEvaluator.class);
+        when(expressionEvaluator.evaluate(screenActualValue)).thenReturn(evaluatedValue);
+        calculatorWidgetProvider.setExpressionEvaluator(expressionEvaluator);
+        return expressionEvaluator;
+    }
+
+    @NonNull
+    private CalculatorData mockCalculatorData(String screenActualValue) {
+        CalculatorData calculatorData = mock(CalculatorData.class);
+        when(calculatorData.readExpression(getContext())).thenReturn(screenActualValue);
+        calculatorWidgetProvider.setCalculatorData(calculatorData);
+        return calculatorData;
     }
 
     public void testAddSignToExpression() {
@@ -152,9 +163,7 @@ public class CalculatorWidgetProviderTest extends AndroidTestCase {
     private void verifyAddSymbolToExpression(int pressedButtonId, String actualExpression, String expectedExpression) {
         // given
         Intent intent = mockIntent(pressedButtonId);
-        CalculatorData calculatorData = Mockito.mock(CalculatorData.class);
-        when(calculatorData.readExpression(getContext())).thenReturn(actualExpression);
-        calculatorWidgetProvider.setCalculatorData(calculatorData);
+        CalculatorData calculatorData = mockCalculatorData(actualExpression);
 
         // when
         calculatorWidgetProvider.onReceive(getContext(), intent);
@@ -168,8 +177,7 @@ public class CalculatorWidgetProviderTest extends AndroidTestCase {
 
     public void testResetExpressionOnEnabled() {
         // given
-        CalculatorData calculatorData = mock(CalculatorData.class);
-        calculatorWidgetProvider.setCalculatorData(calculatorData);
+        CalculatorData calculatorData = mockCalculatorData("123+6787.78");
 
         // when
         calculatorWidgetProvider.onEnabled(getContext());
@@ -181,11 +189,8 @@ public class CalculatorWidgetProviderTest extends AndroidTestCase {
     public void testDoNotEvaluateWhenExpressionEmpty() {
         // given
         Intent intent = mockIntent(R.id.equals);
-        CalculatorData calculatorData = mock(CalculatorData.class);
-        when(calculatorData.readExpression(getContext())).thenReturn("");
-        calculatorWidgetProvider.setCalculatorData(calculatorData);
-        ExpressionEvaluator expressionEvaluator = mock(ExpressionEvaluator.class);
-        calculatorWidgetProvider.setExpressionEvaluator(expressionEvaluator);
+        mockCalculatorData("");
+        ExpressionEvaluator expressionEvaluator = mockExpressionEvaluator(null, null);
 
         // when
         calculatorWidgetProvider.onReceive(getContext(), intent);
@@ -210,9 +215,7 @@ public class CalculatorWidgetProviderTest extends AndroidTestCase {
         ExpressionEvaluator expressionEvaluator = mock(ExpressionEvaluator.class);
         when(expressionEvaluator.evaluate(anyString())).thenThrow(new RuntimeException());
         calculatorWidgetProvider.setExpressionEvaluator(expressionEvaluator);
-        CalculatorData calculatorData = mock(CalculatorData.class);
-        when(calculatorData.readExpression(getContext())).thenReturn("bad expression");
-        calculatorWidgetProvider.setCalculatorData(calculatorData);
+        CalculatorData calculatorData = mockCalculatorData("bad expression");
 
         // when
         calculatorWidgetProvider.onReceive(getContext(), intent);
@@ -225,9 +228,7 @@ public class CalculatorWidgetProviderTest extends AndroidTestCase {
     public void testSaveEmptyExpressionWhenReset() {
         // given
         Intent intent = mockIntent(R.id.reset);
-        CalculatorData calculatorData = mock(CalculatorData.class);
-        when(calculatorData.readExpression(getContext())).thenReturn("12+457");
-        calculatorWidgetProvider.setCalculatorData(calculatorData);
+        CalculatorData calculatorData = mockCalculatorData("12+457");
 
         // when
         calculatorWidgetProvider.onReceive(getContext(), intent);
@@ -240,9 +241,7 @@ public class CalculatorWidgetProviderTest extends AndroidTestCase {
     public void testSaveEmptyExpressionWhenClearOne() {
         // given
         Intent intent = mockIntent(R.id.clear_one);
-        CalculatorData calculatorData = mock(CalculatorData.class);
-        when(calculatorData.readExpression(getContext())).thenReturn("1");
-        calculatorWidgetProvider.setCalculatorData(calculatorData);
+        CalculatorData calculatorData = mockCalculatorData("1");
 
         // when
         calculatorWidgetProvider.onReceive(getContext(), intent);
@@ -250,5 +249,42 @@ public class CalculatorWidgetProviderTest extends AndroidTestCase {
         // then
         assertThat(calculatorWidgetProvider.getExpression(), equalTo(""));
         verify(calculatorData, times(1)).saveExpression(getContext(), "");
+    }
+
+    private static final boolean INSERT_DOT = true;
+    private static final boolean NO_DOT = false;
+
+    private static String[] MAX_DATA_TEST_SET = {
+            getMaxNumber(NO_DOT),
+            getMaxNumber(INSERT_DOT)
+    };
+
+    public void testMaxNumberLengthConstraint() {
+        for(String testData: MAX_DATA_TEST_SET) {
+            verifyCannotAddSignToExpression(testData);
+        }
+    }
+
+    private void verifyCannotAddSignToExpression(String testData) {
+        // given
+        Intent intent = mockIntent(R.id.three);
+        mockCalculatorData(testData);
+
+        // when
+        calculatorWidgetProvider.onReceive(getContext(), intent);
+
+        // then
+        assertThat(calculatorWidgetProvider.getExpression(), equalTo(testData));
+    }
+
+    private static String getMaxNumber(boolean insertDot) {
+        String result = "1";
+        for (int i = 0; i < ExpressionEvaluator.MAX_NUMBER_LENGTH-1; i++) {
+            result += "0";
+            if(insertDot == true && ExpressionEvaluator.MAX_NUMBER_LENGTH /2 == i) {
+                result += ".";
+            }
+        }
+        return result;
     }
 }
