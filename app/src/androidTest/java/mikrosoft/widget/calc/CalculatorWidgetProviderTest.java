@@ -236,4 +236,19 @@ public class CalculatorWidgetProviderTest extends AndroidTestCase {
         assertThat(calculatorWidgetProvider.getExpression(), equalTo(""));
         verify(calculatorData, times(1)).saveExpression(getContext(), "");
     }
+
+    public void testSaveEmptyExpressionWhenClearOne() {
+        // given
+        Intent intent = mockIntent(R.id.clear_one);
+        CalculatorData calculatorData = mock(CalculatorData.class);
+        when(calculatorData.readExpression(getContext())).thenReturn("1");
+        calculatorWidgetProvider.setCalculatorData(calculatorData);
+
+        // when
+        calculatorWidgetProvider.onReceive(getContext(), intent);
+
+        // then
+        assertThat(calculatorWidgetProvider.getExpression(), equalTo(""));
+        verify(calculatorData, times(1)).saveExpression(getContext(), "");
+    }
 }

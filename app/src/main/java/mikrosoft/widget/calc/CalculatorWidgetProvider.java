@@ -69,6 +69,9 @@ public class CalculatorWidgetProvider extends AppWidgetProvider {
         } else if (buttonId == R.id.clear_one) {
             if (expression.length() > 0) {
                 expression = expression.substring(0, expression.length() - 1);
+                if(expression.length() == 0) {
+                    calculatorData.saveExpression(context, "");
+                }
             }
         } else if (buttonId == R.id.equals && expression.length() > 0) {
             evaluateExpression();
