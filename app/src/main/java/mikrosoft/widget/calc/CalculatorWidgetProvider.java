@@ -12,6 +12,7 @@ public class CalculatorWidgetProvider extends AppWidgetProvider {
 
     public static final String BUTTON_PRESS_ACTION = "button.press.action";
     public static final String BUTTON_ID = "button.id";
+    public static final String EVALUATE_ERROR = "Error";
     private final String PACKAGE_NAME = "calc.widget.android.mikrosoft.calculatorwidget";
     private static final String EMPTY_EXPRESSION = "";
     private static String expression = "";
@@ -64,19 +65,36 @@ public class CalculatorWidgetProvider extends AppWidgetProvider {
         int buttonId = intent.getExtras().getInt(BUTTON_ID);
         if (buttonId == R.id.reset) {
             expression = "";
+            calculatorData.saveExpression(context, "");
         } else if (buttonId == R.id.clear_one) {
             if (expression.length() > 0) {
-                expression = expression.substring(0, expression.length()-1);
+                expression = expression.substring(0, expression.length() - 1);
             }
         } else if (buttonId == R.id.equals && expression.length() > 0) {
-            expression = expressionEvaluator.evaluate(expression);
+            evaluateExpression();
         } else {
             addSymbolToExpression(buttonId);
         }
-        calculatorData.saveExpression(context, expression);
+        saveExpression(context);
         int[] widgetIds = intent.getIntArrayExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS);
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
         onUpdate(context, appWidgetManager, widgetIds);
+    }
+
+    private void saveExpression(Context context) {
+        if (expression.equals(EVALUATE_ERROR)) {
+            calculatorData.saveExpression(context, "");
+        } else if (expression.length() > 0) {
+            calculatorData.saveExpression(context, expression);
+        }
+    }
+
+    private void evaluateExpression() {
+        try {
+            expression = expressionEvaluator.evaluate(expression);
+        } catch (Exception e) {
+            expression = EVALUATE_ERROR;
+        }
     }
 
     private void addSymbolToExpression(int buttonId) {
