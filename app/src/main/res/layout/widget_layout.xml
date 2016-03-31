@@ -50,7 +50,9 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:background="@drawable/orange_btn_default_holo_light"
-                    android:src="@drawable/symbol_reset" />
+                    android:src="@drawable/symbol_reset"
+                    android:scaleType="fitCenter"
+                    android:padding="@dimen/numberButtonPadding"/>
 
                 <ImageButton
                     android:id="@+id/clear_one"
@@ -58,7 +60,9 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:background="@drawable/orange_btn_default_holo_light"
-                    android:src="@drawable/arrow_back" />
+                    android:src="@drawable/arrow_back"
+                    android:scaleType="center"
+                    android:padding="@dimen/numberButtonPadding"/>
 
                 <ImageButton
                     android:id="@+id/divide"
@@ -66,7 +70,10 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:background="@drawable/grey_theme_btn_default_holo_light"
-                    android:src="@drawable/symbol_divide" />
+                    android:src="@drawable/symbol_divide"
+                    android:scaleType="fitCenter"
+                    android:padding="@dimen/numberButtonPadding"
+                    />
 
             </LinearLayout>
 
@@ -83,7 +90,9 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:background="@drawable/grey_theme_btn_default_holo_light"
-                    android:src="@drawable/symbol_seven" />
+                    android:src="@drawable/symbol_seven"
+                    android:scaleType="fitCenter"
+                    android:padding="@dimen/numberButtonPadding"/>
 
                 <ImageButton
                     android:id="@+id/eight"
@@ -91,7 +100,9 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:background="@drawable/grey_theme_btn_default_holo_light"
-                    android:src="@drawable/symbol_eight" />
+                    android:src="@drawable/symbol_eight"
+                    android:scaleType="fitCenter"
+                    android:padding="@dimen/numberButtonPadding"/>
 
                 <ImageButton
                     android:id="@+id/nine"
@@ -99,7 +110,9 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:background="@drawable/grey_theme_btn_default_holo_light"
-                    android:src="@drawable/symbol_nine" />
+                    android:src="@drawable/symbol_nine"
+                    android:scaleType="fitCenter"
+                    android:padding="@dimen/numberButtonPadding" />
 
             </LinearLayout>
 
@@ -116,7 +129,9 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:background="@drawable/grey_theme_btn_default_holo_light"
-                    android:src="@drawable/symbol_four" />
+                    android:src="@drawable/symbol_four"
+                    android:scaleType="fitCenter"
+                    android:padding="@dimen/numberButtonPadding"/>
 
                 <ImageButton
                     android:id="@+id/five"
@@ -124,7 +139,9 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:background="@drawable/grey_theme_btn_default_holo_light"
-                    android:src="@drawable/symbol_five" />
+                    android:src="@drawable/symbol_five"
+                    android:scaleType="fitCenter"
+                    android:padding="@dimen/numberButtonPadding"/>
 
                 <ImageButton
                     android:id="@+id/six"
@@ -132,7 +149,9 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:background="@drawable/grey_theme_btn_default_holo_light"
-                    android:src="@drawable/symbol_six" />
+                    android:src="@drawable/symbol_six"
+                    android:scaleType="fitCenter"
+                    android:padding="@dimen/numberButtonPadding"/>
 
             </LinearLayout>
 
@@ -149,7 +168,9 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:background="@drawable/grey_theme_btn_default_holo_light"
-                    android:src="@drawable/symbol_one" />
+                    android:src="@drawable/symbol_one"
+                    android:scaleType="fitCenter"
+                    android:padding="@dimen/numberButtonPadding"/>
 
                 <ImageButton
                     android:id="@+id/two"
@@ -157,7 +178,9 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:background="@drawable/grey_theme_btn_default_holo_light"
-                    android:src="@drawable/symbol_two" />
+                    android:src="@drawable/symbol_two"
+                    android:scaleType="fitCenter"
+                    android:padding="@dimen/numberButtonPadding"/>
 
                 <ImageButton
                     android:id="@+id/three"
@@ -165,7 +188,9 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:background="@drawable/grey_theme_btn_default_holo_light"
-                    android:src="@drawable/symbol_three" />
+                    android:src="@drawable/symbol_three"
+                    android:scaleType="fitCenter"
+                    android:padding="@dimen/numberButtonPadding"/>
 
             </LinearLayout>
 
@@ -182,7 +207,9 @@
                     android:layout_height="match_parent"
                     android:layout_weight="2"
                     android:background="@drawable/grey_theme_btn_default_holo_light"
-                    android:src="@drawable/symbol_zero" />
+                    android:src="@drawable/symbol_zero"
+                    android:scaleType="fitCenter"
+                    android:padding="@dimen/numberButtonPadding"/>
 
                 <ImageButton
                     android:id="@+id/dot"
@@ -190,7 +217,9 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:background="@drawable/grey_theme_btn_default_holo_light"
-                    android:src="@drawable/symbol_dot" />
+                    android:src="@drawable/symbol_dot"
+                    android:scaleType="center"
+                    android:padding="@dimen/numberButtonPadding" />
 
             </LinearLayout>
 
@@ -209,7 +238,9 @@
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:background="@drawable/grey_theme_btn_default_holo_light"
-                android:src="@drawable/symbol_multiply" />
+                android:src="@drawable/symbol_multiply"
+                android:scaleType="fitCenter"
+                android:padding="@dimen/numberButtonPadding"/>
 
             <ImageButton
                 android:id="@+id/minus"
@@ -217,7 +248,9 @@
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:background="@drawable/grey_theme_btn_default_holo_light"
-                android:src="@drawable/symbol_minus" />
+                android:src="@drawable/symbol_minus"
+                android:scaleType="center"
+                android:padding="@dimen/numberButtonPadding"/>
 
             <ImageButton
                 android:id="@+id/plus"
@@ -225,7 +258,9 @@
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:background="@drawable/grey_theme_btn_default_holo_light"
-                android:src="@drawable/symbol_plus" />
+                android:src="@drawable/symbol_plus"
+                android:scaleType="fitCenter"
+                android:padding="@dimen/numberButtonPadding"/>
 
             <ImageButton
                 android:id="@+id/equals"
@@ -233,7 +268,9 @@
                 android:layout_height="0dp"
                 android:layout_weight="2"
                 android:background="@drawable/blue_btn_default_holo_light"
-                android:src="@drawable/symbol_equals" />
+                android:src="@drawable/symbol_equals"
+                android:scaleType="center"
+                android:padding="@dimen/numberButtonPadding"/>
         </LinearLayout>
     </LinearLayout>
 

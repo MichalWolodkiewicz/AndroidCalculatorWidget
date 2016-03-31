@@ -10,7 +10,6 @@ import android.widget.RemoteViews;
 
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
-import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import static mikrosoft.widget.calc.CalculatorWidgetProvider.BUTTON_PRESS_ACTION;
@@ -31,13 +30,25 @@ public class CalculatorWidgetProviderTest extends AndroidTestCase {
     private static final int BUTTON_ID = 0;
     private static final int SYMBOL = 1;
     private static final int EXPECTED = 2;
+    private static final boolean INSERT_DOT = true;
+    private static final boolean NO_DOT = false;
+
+    private static String[] MAX_DATA_TEST_SET = {
+            getMaxNumber(NO_DOT),
+            getMaxNumber(INSERT_DOT)
+    };
     private static final Object[][] ADD_SIGN_TO_EXPRESSION_TEST_DATA = new Object[][]{
             {R.id.zero, "*0", "*0"},
             {R.id.zero, "/0", "/0"},
             {R.id.zero, "+0", "+0"},
             {R.id.zero, "-0", "-0"},
             {R.id.zero, "0.", "0.0"},
+            {R.id.zero, getMaxNumber(NO_DOT), getMaxNumber(NO_DOT)},
             {R.id.zero, "", "0"},
+            {R.id.zero, "0", "0"},
+            {R.id.zero, "10", "100"},
+            {R.id.zero, "10+0.", "10+0.0"},
+            {R.id.zero, "10+10", "10+100"},
             {R.id.zero, "1*", "1*0"},
             {R.id.zero, "1234", "12340"},
             {R.id.reset, "12", ""},
@@ -48,6 +59,11 @@ public class CalculatorWidgetProviderTest extends AndroidTestCase {
             {R.id.one, "3-", "3-1"},
             {R.id.one, "3+", "3+1"},
             {R.id.one, "3.", "3.1"},
+            {R.id.one, "0", "0"},
+            {R.id.one, "10", "101"},
+            {R.id.one, "10.", "10.1"},
+            {R.id.one, "10+0", "10+0"},
+            {R.id.one, "10+", "10+1"},
             {R.id.minus, "1-", "1-"},
             {R.id.minus, "1/", "1/"},
             {R.id.minus, "1+", "1+"},
@@ -250,14 +266,6 @@ public class CalculatorWidgetProviderTest extends AndroidTestCase {
         assertThat(calculatorWidgetProvider.getExpression(), equalTo(""));
         verify(calculatorData, times(1)).saveExpression(getContext(), "");
     }
-
-    private static final boolean INSERT_DOT = true;
-    private static final boolean NO_DOT = false;
-
-    private static String[] MAX_DATA_TEST_SET = {
-            getMaxNumber(NO_DOT),
-            getMaxNumber(INSERT_DOT)
-    };
 
     public void testMaxNumberLengthConstraint() {
         for(String testData: MAX_DATA_TEST_SET) {
