@@ -14,6 +14,12 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/appwidget_info" />
         </receiver>
+        <activity
+            android:name=".dialog.DialogActivity"
+            android:theme="@style/Transparent"
+            android:excludeFromRecents="true"
+            android:noHistory="true" >
+        </activity>
     </application>
 
 </manifest>

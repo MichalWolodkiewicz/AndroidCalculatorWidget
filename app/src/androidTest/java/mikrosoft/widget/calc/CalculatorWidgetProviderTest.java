@@ -27,6 +27,7 @@ import static org.mockito.Mockito.when;
 public class CalculatorWidgetProviderTest extends AndroidTestCase {
 
     private static final int NUMBER_OF_BUTTONS = 18;
+    private static final int SCREEN = 1;
     private static final int BUTTON_ID = 0;
     private static final int SYMBOL = 1;
     private static final int EXPECTED = 2;
@@ -134,7 +135,7 @@ public class CalculatorWidgetProviderTest extends AndroidTestCase {
         calculatorWidgetProvider.onReceive(getContext(), intent);
 
         // then
-        verify(remoteViews, times(NUMBER_OF_BUTTONS)).setOnClickPendingIntent(anyInt(), any(PendingIntent.class));
+        verify(remoteViews, times(NUMBER_OF_BUTTONS + SCREEN)).setOnClickPendingIntent(anyInt(), any(PendingIntent.class));
     }
 
     public void testEvaluateExpression() {
@@ -268,9 +269,23 @@ public class CalculatorWidgetProviderTest extends AndroidTestCase {
     }
 
     public void testMaxNumberLengthConstraint() {
-        for(String testData: MAX_DATA_TEST_SET) {
+        for (String testData : MAX_DATA_TEST_SET) {
             verifyCannotAddSignToExpression(testData);
         }
+    }
+
+    public void testSaveResultOnEqualPressedAndExpressionNotEmpty() {
+        // given
+        final String EXPRESSION = "100+200";
+        final String RESULT = "300";
+        Intent intent = mockIntent(R.id.equals);
+        CalculatorData calculatorData = mockCalculatorData(EXPRESSION);
+
+        // when
+        calculatorWidgetProvider.onReceive(getContext(), intent);
+
+        //then
+        verify(calculatorData, times(1)).saveResult(getContext(), RESULT);
     }
 
     private void verifyCannotAddSignToExpression(String testData) {
@@ -287,12 +302,31 @@ public class CalculatorWidgetProviderTest extends AndroidTestCase {
 
     private static String getMaxNumber(boolean insertDot) {
         String result = "1";
-        for (int i = 0; i < ExpressionEvaluator.MAX_NUMBER_LENGTH-1; i++) {
+        for (int i = 0; i < ExpressionEvaluator.MAX_NUMBER_LENGTH - 1; i++) {
             result += "0";
-            if(insertDot == true && ExpressionEvaluator.MAX_NUMBER_LENGTH /2 == i) {
+            if (insertDot == true && ExpressionEvaluator.MAX_NUMBER_LENGTH / 2 == i) {
                 result += ".";
             }
         }
         return result;
+    }
+
+    public void testAddSavedResultToExpression() {
+        // given
+        final String EXPRESSION = "100+";
+        final String SAVED_RESULT = "20";
+        Intent intent = mock(Intent.class);
+        when(intent.getAction()).thenReturn(CalculatorWidgetProvider.ACTION_SELECTED_SAVED_RESULT);
+        when(intent.getStringExtra(CalculatorWidgetProvider.EXTRA_SAVED_RESULT)).thenReturn(SAVED_RESULT);
+        CalculatorData calculatorData = mockCalculatorData(EXPRESSION);
+        calculatorWidgetProvider.setCalculatorData(calculatorData);
+
+        // when
+        calculatorWidgetProvider.onReceive(getContext(), intent);
+
+        // then
+        verify(intent, times(1)).getStringExtra(CalculatorWidgetProvider.EXTRA_SAVED_RESULT);
+        verify(calculatorData, times(1)).saveExpression(getContext(), EXPRESSION + SAVED_RESULT);
+        assertThat(calculatorWidgetProvider.getExpression(), equalTo(EXPRESSION + SAVED_RESULT));
     }
 }

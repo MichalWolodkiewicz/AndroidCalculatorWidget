@@ -3,9 +3,12 @@ package mikrosoft.widget.calc;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.widget.RemoteViews;
+
+import mikrosoft.widget.calc.dialog.DialogActivity;
 
 
 public class CalculatorWidgetProvider extends AppWidgetProvider {
@@ -13,6 +16,8 @@ public class CalculatorWidgetProvider extends AppWidgetProvider {
     public static final String BUTTON_PRESS_ACTION = "button.press.action";
     public static final String BUTTON_ID = "button.id";
     public static final String EVALUATE_ERROR = "Error";
+    public static final String EXTRA_SAVED_RESULT = "extra.result";
+    public static final String ACTION_SELECTED_SAVED_RESULT = "action.selected.saved.result";
     private final String PACKAGE_NAME = "calc.widget.android.mikrosoft.calculatorwidget";
     private static final String EMPTY_EXPRESSION = "";
     private static String expression = "";
@@ -35,16 +40,24 @@ public class CalculatorWidgetProvider extends AppWidgetProvider {
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         setPendingIntentsToButtons(context, remoteViews, appWidgetIds);
         remoteViews.setTextViewText(R.id.calculator_screen, expression);
-        appWidgetManager.updateAppWidget(appWidgetIds, remoteViews);
+        ComponentName componentName = new ComponentName(context, CalculatorWidgetProvider.class);
+        appWidgetManager.updateAppWidget(componentName, remoteViews);
     }
 
     private void setPendingIntentsToButtons(Context context, RemoteViews remoteViews, int[] widgetIds) {
         for (Integer button : CalculatorButtons.getButtonsIds()) {
-            remoteViews.setOnClickPendingIntent(button, getPendingIntent(context, button, widgetIds));
+            remoteViews.setOnClickPendingIntent(button, getButtonPendingIntent(context, button, widgetIds));
         }
+        remoteViews.setOnClickPendingIntent(R.id.calculator_screen, getScreenPendingIntent(context));
     }
 
-    private PendingIntent getPendingIntent(Context context, int buttonId, int[] widgetIds) {
+    private PendingIntent getScreenPendingIntent(Context context) {
+        Intent dialogActivityIntent = new Intent(context, DialogActivity.class);
+        dialogActivityIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        return PendingIntent.getActivity(context, 0, dialogActivityIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+    }
+
+    private PendingIntent getButtonPendingIntent(Context context, int buttonId, int[] widgetIds) {
         Intent intent = new Intent(context, getClass());
         intent.setAction(BUTTON_PRESS_ACTION);
         intent.putExtra(BUTTON_ID, buttonId);
@@ -57,6 +70,8 @@ public class CalculatorWidgetProvider extends AppWidgetProvider {
         super.onReceive(context, intent);
         if (intent.getAction().equals(BUTTON_PRESS_ACTION)) {
             processButtonClick(context, intent);
+        } else if (intent.getAction().equals(ACTION_SELECTED_SAVED_RESULT)) {
+            processSavedResult(context, intent);
         }
     }
 
@@ -69,11 +84,20 @@ public class CalculatorWidgetProvider extends AppWidgetProvider {
             clearOneSign(context);
         } else if (buttonId == R.id.equals && expression.length() > 0) {
             evaluateExpression();
+            calculatorData.saveResult(context, expression);
         } else {
             addSymbolToExpression(buttonId);
         }
         saveExpression(context);
         updateWidgets(context, intent);
+    }
+
+    private void processSavedResult(Context context, Intent intent) {
+        String savedResult = intent.getStringExtra(EXTRA_SAVED_RESULT);
+        expression = calculatorData.readExpression(context);
+        expression += savedResult;
+        onUpdate(context, AppWidgetManager.getInstance(context), null);
+        calculatorData.saveExpression(context, expression);
     }
 
     private void resetExpression(Context context) {
@@ -84,7 +108,7 @@ public class CalculatorWidgetProvider extends AppWidgetProvider {
     private void clearOneSign(Context context) {
         if (expression.length() > 0) {
             expression = expression.substring(0, expression.length() - 1);
-            if(expression.length() == 0) {
+            if (expression.length() == 0) {
                 calculatorData.saveExpression(context, "");
             }
         }
