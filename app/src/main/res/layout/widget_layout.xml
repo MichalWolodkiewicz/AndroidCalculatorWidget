@@ -14,6 +14,9 @@
         android:layout_weight="4"
         android:background="@android:color/black"
         android:lines="3"
+        android:ellipsize="end"
+        android:gravity="bottom"
+        android:inputType="textMultiLine"
         android:textColor="@android:color/white"
         android:textSize="20dp"
         android:layout_marginTop="@dimen/calculator_padding"
@@ -52,7 +55,8 @@
                     android:background="@drawable/orange_btn_default_holo_light"
                     android:src="@drawable/symbol_reset"
                     android:scaleType="fitCenter"
-                    android:padding="@dimen/numberButtonPadding"/>
+                    android:padding="@dimen/numberButtonPadding"
+                    android:soundEffectsEnabled="false"/>
 
                 <ImageButton
                     android:id="@+id/clear_one"
@@ -62,7 +66,8 @@
                     android:background="@drawable/orange_btn_default_holo_light"
                     android:src="@drawable/arrow_back"
                     android:scaleType="center"
-                    android:padding="@dimen/numberButtonPadding"/>
+                    android:padding="@dimen/numberButtonPadding"
+                    android:soundEffectsEnabled="false"/>
 
                 <ImageButton
                     android:id="@+id/divide"
@@ -73,7 +78,7 @@
                     android:src="@drawable/symbol_divide"
                     android:scaleType="fitCenter"
                     android:padding="@dimen/numberButtonPadding"
-                    />
+                    android:soundEffectsEnabled="false" />
 
             </LinearLayout>
 
@@ -92,7 +97,8 @@
                     android:background="@drawable/grey_theme_btn_default_holo_light"
                     android:src="@drawable/symbol_seven"
                     android:scaleType="fitCenter"
-                    android:padding="@dimen/numberButtonPadding"/>
+                    android:padding="@dimen/numberButtonPadding"
+                    android:soundEffectsEnabled="false"/>
 
                 <ImageButton
                     android:id="@+id/eight"
@@ -102,7 +108,8 @@
                     android:background="@drawable/grey_theme_btn_default_holo_light"
                     android:src="@drawable/symbol_eight"
                     android:scaleType="fitCenter"
-                    android:padding="@dimen/numberButtonPadding"/>
+                    android:padding="@dimen/numberButtonPadding"
+                    android:soundEffectsEnabled="false"/>
 
                 <ImageButton
                     android:id="@+id/nine"
@@ -112,7 +119,8 @@
                     android:background="@drawable/grey_theme_btn_default_holo_light"
                     android:src="@drawable/symbol_nine"
                     android:scaleType="fitCenter"
-                    android:padding="@dimen/numberButtonPadding" />
+                    android:padding="@dimen/numberButtonPadding"
+                    android:soundEffectsEnabled="false"/>
 
             </LinearLayout>
 
@@ -131,7 +139,8 @@
                     android:background="@drawable/grey_theme_btn_default_holo_light"
                     android:src="@drawable/symbol_four"
                     android:scaleType="fitCenter"
-                    android:padding="@dimen/numberButtonPadding"/>
+                    android:padding="@dimen/numberButtonPadding"
+                    android:soundEffectsEnabled="false"/>
 
                 <ImageButton
                     android:id="@+id/five"
@@ -141,7 +150,8 @@
                     android:background="@drawable/grey_theme_btn_default_holo_light"
                     android:src="@drawable/symbol_five"
                     android:scaleType="fitCenter"
-                    android:padding="@dimen/numberButtonPadding"/>
+                    android:padding="@dimen/numberButtonPadding"
+                    android:soundEffectsEnabled="false"/>
 
                 <ImageButton
                     android:id="@+id/six"
@@ -151,7 +161,8 @@
                     android:background="@drawable/grey_theme_btn_default_holo_light"
                     android:src="@drawable/symbol_six"
                     android:scaleType="fitCenter"
-                    android:padding="@dimen/numberButtonPadding"/>
+                    android:padding="@dimen/numberButtonPadding"
+                    android:soundEffectsEnabled="false"/>
 
             </LinearLayout>
 
@@ -170,7 +181,8 @@
                     android:background="@drawable/grey_theme_btn_default_holo_light"
                     android:src="@drawable/symbol_one"
                     android:scaleType="fitCenter"
-                    android:padding="@dimen/numberButtonPadding"/>
+                    android:padding="@dimen/numberButtonPadding"
+                    android:soundEffectsEnabled="false"/>
 
                 <ImageButton
                     android:id="@+id/two"
@@ -180,7 +192,8 @@
                     android:background="@drawable/grey_theme_btn_default_holo_light"
                     android:src="@drawable/symbol_two"
                     android:scaleType="fitCenter"
-                    android:padding="@dimen/numberButtonPadding"/>
+                    android:padding="@dimen/numberButtonPadding"
+                    android:soundEffectsEnabled="false"/>
 
                 <ImageButton
                     android:id="@+id/three"
@@ -190,7 +203,8 @@
                     android:background="@drawable/grey_theme_btn_default_holo_light"
                     android:src="@drawable/symbol_three"
                     android:scaleType="fitCenter"
-                    android:padding="@dimen/numberButtonPadding"/>
+                    android:padding="@dimen/numberButtonPadding"
+                    android:soundEffectsEnabled="false"/>
 
             </LinearLayout>
 
@@ -209,7 +223,8 @@
                     android:background="@drawable/grey_theme_btn_default_holo_light"
                     android:src="@drawable/symbol_zero"
                     android:scaleType="fitCenter"
-                    android:padding="@dimen/numberButtonPadding"/>
+                    android:padding="@dimen/numberButtonPadding"
+                    android:soundEffectsEnabled="false"/>
 
                 <ImageButton
                     android:id="@+id/dot"
@@ -219,7 +234,8 @@
                     android:background="@drawable/grey_theme_btn_default_holo_light"
                     android:src="@drawable/symbol_dot"
                     android:scaleType="center"
-                    android:padding="@dimen/numberButtonPadding" />
+                    android:padding="@dimen/numberButtonPadding"
+                    android:soundEffectsEnabled="false"/>
 
             </LinearLayout>
 
@@ -240,7 +256,8 @@
                 android:background="@drawable/grey_theme_btn_default_holo_light"
                 android:src="@drawable/symbol_multiply"
                 android:scaleType="fitCenter"
-                android:padding="@dimen/numberButtonPadding"/>
+                android:padding="@dimen/numberButtonPadding"
+                android:soundEffectsEnabled="false"/>
 
             <ImageButton
                 android:id="@+id/minus"
@@ -250,7 +267,8 @@
                 android:background="@drawable/grey_theme_btn_default_holo_light"
                 android:src="@drawable/symbol_minus"
                 android:scaleType="center"
-                android:padding="@dimen/numberButtonPadding"/>
+                android:padding="@dimen/numberButtonPadding"
+                android:soundEffectsEnabled="false"/>
 
             <ImageButton
                 android:id="@+id/plus"
@@ -260,7 +278,8 @@
                 android:background="@drawable/grey_theme_btn_default_holo_light"
                 android:src="@drawable/symbol_plus"
                 android:scaleType="fitCenter"
-                android:padding="@dimen/numberButtonPadding"/>
+                android:padding="@dimen/numberButtonPadding"
+                android:soundEffectsEnabled="false"/>
 
             <ImageButton
                 android:id="@+id/equals"
@@ -270,7 +289,9 @@
                 android:background="@drawable/blue_btn_default_holo_light"
                 android:src="@drawable/symbol_equals"
                 android:scaleType="center"
-                android:padding="@dimen/numberButtonPadding"/>
+                android:padding="@dimen/numberButtonPadding"
+                android:soundEffectsEnabled="false"/>
+
         </LinearLayout>
     </LinearLayout>
 
